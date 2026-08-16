@@ -3,7 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>AI Resume Analyzer</title>
 
@@ -14,12 +16,18 @@
 
     <div class="container">
 
+        <!-- Header -->
+
         <header>
-            <h1>AI Resume Analyzer</h1>
+
+            <h1>📄 AI Resume Analyzer</h1>
 
             <p class="subtitle">
-                Upload your resume and get an AI-powered analysis
+                Upload your resume and get an AI-powered
+                analysis, score, skill suggestions and
+                suitable career roles.
             </p>
+
         </header>
 
 
@@ -34,12 +42,11 @@
             <h2>Upload Your Resume</h2>
 
             <p>
-                Select your resume in PDF format
+                Upload your resume in PDF format
             </p>
 
-            <label for="resume" class="file-label">
-                Choose PDF
-            </label>
+
+            <!-- File Input -->
 
             <input
                 type="file"
@@ -47,29 +54,63 @@
                 accept=".pdf,application/pdf"
             >
 
-            <p id="fileName" class="file-name">
+
+            <!-- Choose File Button -->
+
+            <label
+                for="resume"
+                class="file-label"
+            >
+                📁 Choose PDF
+            </label>
+
+
+            <!-- Selected File Name -->
+
+            <p
+                id="fileName"
+                class="file-name"
+            >
                 No file selected
             </p>
 
-            <button id="analyzeBtn">
-                Analyze Resume
+
+            <!-- Analyze Button -->
+
+            <button
+                type="button"
+                id="analyzeBtn"
+            >
+                🔍 Analyze Resume
             </button>
-          <button id="resetBtn" class="reset-btn">
-               🔄 Analyze Another Resume
-          </button>
+
+
+            <!-- Reset Button -->
+
+            <button
+                type="button"
+                id="resetBtn"
+                class="reset-btn"
+            >
+                🔄 Analyze Another Resume
+            </button>
 
         </div>
 
 
-        <!-- Status / Result -->
+        <!-- Result Section -->
 
         <div id="result">
 
-            <h2>Resume Analysis</h2>
+            <div id="status">
 
-            <p id="status">
-                Your AI analysis will appear here.
-            </p>
+                <h3>📄 Resume Analysis</h3>
+
+                <p>
+                    Your AI analysis will appear here.
+                </p>
+
+            </div>
 
         </div>
 
@@ -77,13 +118,17 @@
         <!-- Footer -->
 
         <footer>
+
             <p>
-                AI Resume Analyzer • Powered by AI
+                AI Resume Analyzer | Powered by n8n
             </p>
+
         </footer>
 
     </div>
 
+
+    <!-- JavaScript -->
 
     <script src="script.js"></script>
 
