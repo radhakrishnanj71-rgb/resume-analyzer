@@ -6,19 +6,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const fileName = document.getElementById("fileName");
 
 
-    // Show selected PDF filename
+    // Show selected file
     resumeInput.addEventListener("change", function () {
 
         if (resumeInput.files.length > 0) {
-
-            const file = resumeInput.files[0];
-
-            fileName.textContent = "📄 " + file.name;
-
+            fileName.textContent = "📄 " + resumeInput.files[0].name;
         } else {
-
             fileName.textContent = "No file selected";
-
         }
 
     });
@@ -28,10 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
     analyzeBtn.addEventListener("click", async function () {
 
         if (resumeInput.files.length === 0) {
-
-            status.textContent =
-                "Please select a PDF resume first.";
-
+            status.textContent = "Please select a PDF resume first.";
             return;
         }
 
@@ -40,10 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         if (file.type !== "application/pdf") {
-
-            status.textContent =
-                "Please upload a PDF file.";
-
+            status.textContent = "Please upload a PDF file.";
             return;
         }
 
@@ -55,7 +43,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         const formData = new FormData();
-
         formData.append("resume", file);
 
 
@@ -71,20 +58,67 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             if (!response.ok) {
-
                 throw new Error(
                     "n8n returned status " + response.status
                 );
+            }
+
+
+            let data = await response.json();
+
+            console.log("FULL n8n RESPONSE:", data);
+
+
+            // --------------------------------
+            // HANDLE DIFFERENT n8n RESPONSES
+            // --------------------------------
+
+            if (Array.isArray(data)) {
+                data = data[0] || {};
+            }
+
+
+            if (data.body) {
+                data = data.body;
+            }
+
+
+            if (typeof data === "string") {
+
+                try {
+                    data = JSON.parse(data);
+                } catch (e) {
+                    console.log("Response is plain text");
+                }
 
             }
 
 
-            const result = await response.json();
+            // If output exists
+            if (data && data.output) {
 
-            console.log("n8n response:", result);
+                if (typeof data.output === "string") {
+
+                    try {
+                        data = JSON.parse(data.output);
+                    } catch (e) {
+                        console.log("Output is text");
+                    }
+
+                } else {
+                    data = data.output;
+                }
+
+            }
 
 
-            // Safely convert any value to displayable text
+            console.log("FINAL RESULT:", data);
+
+
+            // --------------------------------
+            // SAFE VALUE FORMATTER
+            // --------------------------------
+
             function formatValue(value) {
 
                 if (
@@ -95,15 +129,29 @@ document.addEventListener("DOMContentLoaded", function () {
                     return "";
                 }
 
+
                 if (Array.isArray(value)) {
-                    return value.join("<br>");
+
+                    return value
+                        .filter(item =>
+                            item !== null &&
+                            item !== undefined &&
+                            item !== ""
+                        )
+                        .map(item => String(item))
+                        .join("<br>");
+
                 }
+
 
                 return String(value);
             }
 
 
-            // Create section only when information exists
+            // --------------------------------
+            // CREATE SECTION
+            // --------------------------------
+
             function createSection(title, value) {
 
                 const content = formatValue(value);
@@ -112,14 +160,22 @@ document.addEventListener("DOMContentLoaded", function () {
                     return "";
                 }
 
+
                 return `
                     <div class="section">
+
                         <h3>${title}</h3>
+
                         <p>${content}</p>
+
                     </div>
                 `;
             }
 
+
+            // --------------------------------
+            // DISPLAY RESULT
+            // --------------------------------
 
             status.innerHTML = `
 
@@ -127,60 +183,71 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     <h2>📄 Resume Analysis</h2>
 
+
                     ${createSection(
                         "👤 Candidate",
-                        result.candidateName
+                        data.candidateName
                     )}
+
 
                     ${createSection(
                         "🎓 Education",
-                        result.education
+                        data.education
                     )}
+
 
                     ${createSection(
                         "💻 Skills",
-                        result.skills
+                        data.skills
                     )}
+
 
                     ${createSection(
                         "📂 Projects",
-                        result.projects
+                        data.projects
                     )}
+
 
                     ${createSection(
                         "📜 Certifications",
-                        result.certifications
+                        data.certifications
                     )}
+
 
                     ${createSection(
                         "💼 Experience",
-                        result.experience
+                        data.experience
                     )}
+
 
                     ${createSection(
                         "⭐ Strengths",
-                        result.strengths
+                        data.strengths
                     )}
+
 
                     ${createSection(
                         "🔧 Areas for Improvement",
-                        result.improvementAreas
+                        data.improvementAreas
                     )}
+
 
                     ${createSection(
                         "🚀 Suggested Skills",
-                        result.suggestedSkills
+                        data.suggestedSkills
                     )}
+
 
                     ${createSection(
                         "💼 Suitable Career Roles",
-                        result.suitableRoles
+                        data.suitableRoles
                     )}
+
 
                     ${createSection(
                         "📊 Resume Score",
-                        result.resumeScore !== undefined
-                            ? result.resumeScore + "/100"
+                        data.resumeScore !== undefined
+                            ? data.resumeScore + "/100"
                             : ""
                     )}
 
@@ -191,13 +258,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         } catch (error) {
 
-            console.error("n8n Error:", error);
+            console.error("ERROR:", error);
 
             status.innerHTML = `
-                <h3>❌ Could not connect to n8n</h3>
-                <p>
-                    ${error.message}
-                </p>
+                <h3>❌ Error</h3>
+                <p>${error.message}</p>
             `;
 
         }
