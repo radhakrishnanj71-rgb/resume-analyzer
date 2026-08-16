@@ -25,9 +25,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         try {
 
-            const response = await fetch(
-                "https://nitiyaah.app.n8n.cloud/webhook-test/52937b1b-241f-4057-bf7f-e6728b1e3bb4",
-                {
+             const response = await fetch(
+    "https://nitiyaah.app.n8n.cloud/webhook/52937b1b-241f-4057-bf7f-e6728b1e3bb4",
+                 {
                     method: "POST",
                     body: formData
                 }
