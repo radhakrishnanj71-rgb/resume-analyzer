@@ -1,95 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Resume Analyzer</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+    <title>AI Resume Analyzer</title>
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 600px;
-            background: white;
-            padding: 35px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-            text-align: center;
-        }
-
-        h1 {
-            margin-bottom: 10px;
-            color: #222;
-        }
-
-        .description {
-            color: #666;
-            margin-bottom: 30px;
-        }
-
-        .file-box {
-            border: 2px dashed #777;
-            border-radius: 10px;
-            padding: 30px 15px;
-            margin-bottom: 20px;
-        }
-
-        input[type="file"] {
-            width: 100%;
-            padding: 10px;
-            cursor: pointer;
-        }
-
-        button {
-            width: 100%;
-            padding: 13px;
-            border: none;
-            border-radius: 8px;
-            background: #2563eb;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        button:hover {
-            background: #1d4ed8;
-        }
-
-        #status {
-            margin-top: 20px;
-            font-weight: bold;
-            color: #333;
-            word-break: break-word;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
     <div class="container">
 
-        <h1>Resume Analyzer</h1>
+        <!-- Header -->
 
-        <p class="description">
-            Upload your PDF resume and analyze it.
-        </p>
+        <header>
 
-        <div class="file-box">
+            <h1>📄 AI Resume Analyzer</h1>
+
+            <p class="subtitle">
+                Upload your resume and get an AI-powered
+                analysis, score, skill suggestions and
+                suitable career roles.
+            </p>
+
+        </header>
+
+
+        <!-- Upload Section -->
+
+        <div class="upload-box">
+
+            <div class="upload-icon">
+                📄
+            </div>
+
+            <h2>Upload Your Resume</h2>
+
+            <p>
+                Upload your resume in PDF format
+            </p>
+
+
+            <!-- File Input -->
 
             <input
                 type="file"
@@ -97,24 +54,84 @@
                 accept=".pdf,application/pdf"
             >
 
+
+            <!-- Choose File Button -->
+
+            <label
+                for="resume"
+                class="file-label"
+            >
+                📁 Choose PDF
+            </label>
+
+
+            <!-- Selected File Name -->
+
+            <p
+                id="fileName"
+                class="file-name"
+            >
+                No file selected
+            </p>
+
+
+            <!-- Analyze Button -->
+
+            <button
+                type="button"
+                id="analyzeBtn"
+            >
+                🔍 Analyze Resume
+            </button>
+
+
+            <!-- Reset Button -->
+
+            <button
+                type="button"
+                id="resetBtn"
+                class="reset-btn"
+            >
+                🔄 Analyze Another Resume
+            </button>
+
         </div>
 
-        <button
-            type="button"
-            id="analyzeBtn"
-        >
-            Analyze Resume
-        </button>
 
-        <p id="status">
-            Please select a PDF resume.
-        </p>
+        <!-- Result Section -->
+
+        <div id="result">
+
+            <div id="status">
+
+                <h3>📄 Resume Analysis</h3>
+
+                <p>
+                    Your AI analysis will appear here.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Footer -->
+
+        <footer>
+
+            <p>
+                AI Resume Analyzer | Powered by n8n
+            </p>
+
+        </footer>
 
     </div>
 
 
     <!-- JavaScript -->
+
     <script src="script.js"></script>
 
 </body>
+
 </html>
