@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Resume Analyzer</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+            <h1>AI Resume Analyzer</h1>
+
+            <p class="subtitle">
+                Upload your resume and get an AI-powered analysis
+            </p>
+        </header>
+
+
+        <!-- Upload Section -->
+
+        <div class="upload-box">
+
+            <div class="upload-icon">
+                📄
+            </div>
+
+            <h2>Upload Your Resume</h2>
+
+            <p>
+                Select your resume in PDF format
+            </p>
+
+            <label for="resume" class="file-label">
+                Choose PDF
+            </label>
+
+            <input
+                type="file"
+                id="resume"
+                accept=".pdf,application/pdf"
+            >
+
+            <p id="fileName" class="file-name">
+                No file selected
+            </p>
+
+            <button id="analyzeBtn">
+                Analyze Resume
+            </button>
+          <button id="resetBtn" class="reset-btn">
+               🔄 Analyze Another Resume
+          </button>
+
+        </div>
+
+
+        <!-- Status / Result -->
+
+        <div id="result">
+
+            <h2>Resume Analysis</h2>
+
+            <p id="status">
+                Your AI analysis will appear here.
+            </p>
+
+        </div>
+
+
+        <!-- Footer -->
+
+        <footer>
+            <p>
+                AI Resume Analyzer • Powered by AI
+            </p>
+        </footer>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
